@@ -474,7 +474,7 @@ def page5():
         #st.title("Simple Blog")
 
         #menu = ["Home", "View Posts", "Add Posts", "Search", "Manage Blog"]
-        menu = ["Tambah Artikel (Tamu)", "Tambah Artikel (Admin)", "Daftar Artikel", "Lihat Artikel", "Cari", "Lain-lain"]
+        menu = ["Tambah Artikel (Tamu)", "Tambah Artikel (Admin)", "Daftar Artikel", "Baca Artikel", "Cari", "Lain-lain"]
         choice = st.sidebar.selectbox("Menu", menu)
 
         def header(url):
@@ -540,10 +540,10 @@ def page5():
                         #st.write(i[0]) #save data (menyimpan dan menampilkan data)
                         st.markdown(title_temp.format(b_title,b_author,b_article,b_post_date),unsafe_allow_html=True)
 
-        elif choice == "Lihat Artikel":
-            st.markdown("<h3 style='text-align: left; color: lime;'>Lihat Artikel</h3>", unsafe_allow_html=True)
+        elif choice == "Baca Artikel":
+            st.markdown("<h3 style='text-align: left; color: lime;'>Baca Artikel</h3>", unsafe_allow_html=True)
             all_titles = [i[0] for i in view_all_titles()]
-            postlist = st.sidebar.selectbox("Lihat Artikel", all_titles)
+            postlist = st.sidebar.selectbox("Baca Artikel", all_titles)
             post_result = get_blog_by_title(postlist)
             for i in post_result:
                 b_author = i[0]

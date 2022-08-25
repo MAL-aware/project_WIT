@@ -474,61 +474,38 @@ def page5():
         #st.title("Simple Blog")
 
         #menu = ["Home", "View Posts", "Add Posts", "Search", "Manage Blog"]
-        menu = ["Tambah Artikel (Tamu)", "Tambah Artikel (Admin)", "Daftar Artikel", "Baca Artikel", "Cari", "Lain-lain"]
-        choice = st.sidebar.selectbox("Menu", menu)
-
-        def header(url):
+        def header(url):                                                        
             st.markdown(f'<p style="background-color:#120967;color:#fefa06;font-size:17px;border-radius:5%;">{url}</p>', unsafe_allow_html=True)
 
-            
-        if choice == "Tambah Artikel (Tamu)":
-            st.markdown("<h3 style='text-align: center; color: yellow;'>Kamu punya konten lain tentang transaksi <i>online</i> atau keamanan siber yang ingin dibagikan? Yuk, ikut berkontribusi bersama kami dengan menuliskan kontenmu sendiri. 📝</h3>", unsafe_allow_html=True)
-            st.write(" ")
-            with st.container():
-                st.markdown("<h3 style='text-align: left; color: lime;'>Tambah Artikel</h3>", unsafe_allow_html=True)
-                create_table_guest()
-                #st.markdown("<p style='color:blue'>Masukkan Nama Penulis<p>", unsafe_allow_html=True)
-                blog_author = st.text_input("Masukkan Nama Penulis", max_chars=50)
-                blog_title = st.text_input("Masukkan Judul Artikel")
-                blog_article = st.text_area("Tulis Artikel Di Sini", height=200) #bisa ditambah height=100
-                blog_post_date = st.date_input("Tanggal")
-                if st.button("Tambah"):
-                    add_data_guest(blog_author,blog_title,blog_article,blog_post_date)
-                    header('Artikel: "{}" disimpan'.format(blog_title))
+        result = view_all_notes()
+        clean_db = pd.DataFrame(result,columns=["Penulis","Judul","Artikel","Tanggal"])
+                
+        menu = ["Admin", "Tamu"]
+        choice = st.sidebar.selectbox("Pilih Admin atau Tamu", menu)
 
-        elif choice == "Tambah Artikel (Admin)":
+        if choice == "Admin":
             if check_password():
-                st.markdown("<h3 style='text-align: center; color: yellow;'>Tambah Artikel (Admin) 📝</h3>", unsafe_allow_html=True)
-                st.write(" ")
-                with st.container():
-                    #st.markdown("<h3 style='text-align: left; color: lime;'>Tambah Artikel</h3>", unsafe_allow_html=True)
-                    create_table()
-                    #st.markdown("<p style='color:blue'>Masukkan Nama Penulis<p>", unsafe_allow_html=True)
-                    blog_author = st.text_input("Masukkan Nama Penulis", max_chars=50)
-                    blog_title = st.text_input("Masukkan Judul Artikel")
-                    blog_article = st.text_area("Tulis Artikel Di Sini", height=200) #bisa ditambah height=100
-                    blog_post_date = st.date_input("Tanggal")
-                    if st.button("Tambah"):
-                        add_data(blog_author,blog_title,blog_article,blog_post_date)
-                        header('Artikel: "{}" disimpan'.format(blog_title))
 
-        elif choice == "Daftar Artikel":
-            #st.subheader("Home")  
-            menu = ["Artikel Pilihan", "Artikel Tamu"]
-            choices = st.sidebar.selectbox("Menu", menu)
-            if choices == "Artikel Pilihan":
-                st.markdown("<h3 style='text-align: left; color: lime;'>Daftar Artikel</h3>", unsafe_allow_html=True)
-                result = view_all_notes()
-                #st.write(result)
-                for i in result:
-                    b_author = i[0]
-                    b_title = i[1]
-                    b_article = str(i[2])[0:30]
-                    b_post_date = i[3]
-                    #st.write(i[0]) #save data (menyimpan dan menampilkan data)
-                    st.markdown(title_temp.format(b_title,b_author,b_article,b_post_date),unsafe_allow_html=True)
-            elif choices == "Artikel Tamu":
-                if check_password():
+                menu = ["Tambah Artikel", "Artikel Tamu", "Penghapusan"]
+                choice = st.sidebar.selectbox("Menu (Khusus Admin)", menu)
+
+        
+                if choice == "Tambah Artikel":
+                    st.markdown("<h3 style='text-align: center; color: yellow;'>Tambah Artikel (Admin) 📝</h3>", unsafe_allow_html=True)
+                    st.write(" ")
+                    with st.container():
+                        #st.markdown("<h3 style='text-align: left; color: lime;'>Tambah Artikel</h3>", unsafe_allow_html=True)
+                        create_table()
+                        #st.markdown("<p style='color:blue'>Masukkan Nama Penulis<p>", unsafe_allow_html=True)
+                        blog_author = st.text_input("Masukkan Nama Penulis", max_chars=50)
+                        blog_title = st.text_input("Masukkan Judul Artikel")
+                        blog_article = st.text_area("Tulis Artikel Di Sini", height=200) #bisa ditambah height=100
+                        blog_post_date = st.date_input("Tanggal")
+                        if st.button("Tambah"):
+                            add_data(blog_author,blog_title,blog_article,blog_post_date)
+                            header('Artikel: "{}" disimpan'.format(blog_title))
+
+                elif choice == "Artikel Tamu":
                     st.markdown("<h3 style='text-align: left; color: lime;'>Daftar Artikel</h3>", unsafe_allow_html=True)
                     result = view_guest()
                     #st.write(result)
@@ -540,32 +517,58 @@ def page5():
                         #st.write(i[0]) #save data (menyimpan dan menampilkan data)
                         st.markdown(title_temp.format(b_title,b_author,b_article,b_post_date),unsafe_allow_html=True)
 
-        elif choice == "Baca Artikel":
-            st.markdown("<h3 style='text-align: left; color: lime;'>Baca Artikel</h3>", unsafe_allow_html=True)
-            all_titles = [i[0] for i in view_all_titles()]
-            postlist = st.sidebar.selectbox("Baca Artikel", all_titles)
-            post_result = get_blog_by_title(postlist)
-            for i in post_result:
-                b_author = i[0]
-                b_title = i[1]
-                b_article = i[2]
-                b_post_date = i[3]
-                st.markdown(head_message_temp.format(b_title,b_author,b_post_date),unsafe_allow_html=True)
-                st.markdown(full_message_temp.format(b_article),unsafe_allow_html=True)
+                elif choice == "Penghapusan":
+                    st.markdown("<h3 style='text-align: left; color: lime;'>Penghapusan</h3>", unsafe_allow_html=True)
+
+                    
+                    st.dataframe(clean_db)
+                    unique_titles = [i[0] for i in view_all_titles()]
+                    delete_blog_by_title = st.selectbox("Judul Artikel yang Dipilih", unique_titles)
+
+                    if st.button("Hapus"):
+                        delete_data(delete_blog_by_title)
+                        st.warning("Artikel Dihapus: '{}'".format(delete_blog_by_title))
+
+        elif choice == "Tamu":
+            menu = ["Tambah Artikel", "Daftar Artikel Pilihan", "Baca Artikel", "Cari", "Statistik"]
+            choice = st.sidebar.selectbox("Menu (Khusus Tamu)", menu)
+
+            if choice == "Tambah Artikel":
+                st.markdown("<h3 style='text-align: center; color: yellow;'>Kamu punya konten lain tentang transaksi <i>online</i> atau keamanan siber yang ingin dibagikan? Yuk, ikut berkontribusi bersama kami dengan menuliskan kontenmu sendiri. 📝</h3>", unsafe_allow_html=True)
+                st.write(" ")
+                with st.container():
+                    st.markdown("<h3 style='text-align: left; color: lime;'>Tambah Artikel</h3>", unsafe_allow_html=True)
+                    create_table_guest()
+                    #st.markdown("<p style='color:blue'>Masukkan Nama Penulis<p>", unsafe_allow_html=True)
+                    blog_author = st.text_input("Masukkan Nama Penulis", max_chars=50)
+                    blog_title = st.text_input("Masukkan Judul Artikel")
+                    blog_article = st.text_area("Tulis Artikel Di Sini", height=200) #bisa ditambah height=100
+                    blog_post_date = st.date_input("Tanggal")
+                    if st.button("Tambah"):
+                        add_data_guest(blog_author,blog_title,blog_article,blog_post_date)
+                        header('Artikel: "{}" disimpan'.format(blog_title))
 
 
-        elif choice == "Cari":
-            st.markdown("<h3 style='text-align: left; color: lime;'>Cari Artikel</h3>", unsafe_allow_html=True)
-            search_term = st.text_input('Cari Artikel Berdasarkan Judul atau Penulis')
-            search_choice = st.radio("Pilih Cari Berdasarkan:", ("judul","penulis"))
+            elif choice == "Daftar Artikel Pilihan":
+                #st.subheader("Home")  
             
-            if st.button("Cari"):
-                if search_choice == "judul":
-                    article_result = get_blog_by_title(search_term)
-                elif search_choice == "penulis":
-                    article_result = get_blog_by_author(search_term)
-
-                for i in article_result:
+                st.markdown("<h3 style='text-align: left; color: lime;'>Daftar Artikel</h3>", unsafe_allow_html=True)
+                result = view_all_notes()
+                #st.write(result)
+                for i in result:
+                    b_author = i[0]
+                    b_title = i[1]
+                    b_article = str(i[2])[0:30]
+                    b_post_date = i[3]
+                    #st.write(i[0]) #save data (menyimpan dan menampilkan data)
+                    st.markdown(title_temp.format(b_title,b_author,b_article,b_post_date),unsafe_allow_html=True)
+                
+            elif choice == "Baca Artikel":
+                st.markdown("<h3 style='text-align: left; color: lime;'>Pilih Artikel yang Mau Dibaca</h3>", unsafe_allow_html=True)
+                all_titles = [i[0] for i in view_all_titles()]
+                postlist = st.sidebar.selectbox("Lihat Artikel", all_titles)
+                post_result = get_blog_by_title(postlist)
+                for i in post_result:
                     b_author = i[0]
                     b_title = i[1]
                     b_article = i[2]
@@ -573,53 +576,45 @@ def page5():
                     st.markdown(head_message_temp.format(b_title,b_author,b_post_date),unsafe_allow_html=True)
                     st.markdown(full_message_temp.format(b_article),unsafe_allow_html=True)
 
-        elif choice == "Lain-lain":
-            st.markdown("<h3 style='text-align: left; color: lime;'>Penghapusan & Data Artikel</h3>", unsafe_allow_html=True)
 
-            result = view_all_notes()
-            clean_db = pd.DataFrame(result,columns=["Penulis","Judul","Artikel","Tanggal"])
-            
+            elif choice == "Cari":
+                st.markdown("<h3 style='text-align: left; color: lime;'>Cari Artikel</h3>", unsafe_allow_html=True)
+                search_term = st.text_input('Cari Artikel Berdasarkan Judul atau Penulis')
+                search_choice = st.radio("Pilih Cari Berdasarkan:", ("judul","penulis"))
+                
+                if st.button("Cari"):
+                    if search_choice == "judul":
+                        article_result = get_blog_by_title(search_term)
+                    elif search_choice == "penulis":
+                        article_result = get_blog_by_author(search_term)
 
-            if check_password():
-                st.dataframe(clean_db)
-                unique_titles = [i[0] for i in view_all_titles()]
-                delete_blog_by_title = st.selectbox("Judul Artikel yang Dipilih", unique_titles)
+                    for i in article_result:
+                        b_author = i[0]
+                        b_title = i[1]
+                        b_article = i[2]
+                        b_post_date = i[3]
+                        st.markdown(head_message_temp.format(b_title,b_author,b_post_date),unsafe_allow_html=True)
+                        st.markdown(full_message_temp.format(b_article),unsafe_allow_html=True)
 
-                if st.button("Hapus"):
-                    delete_data(delete_blog_by_title)
-                    st.warning("Artikel Dihapus: '{}'".format(delete_blog_by_title))
+            elif choice == "Statistik":
+                st.markdown("<h3 style='text-align: left; color: lime;'>Statistik Artikel</h3>", unsafe_allow_html=True)
 
-            new_df = clean_db
+                new_df = clean_db
 
-            if st.checkbox("Metrik"):
-                new_df['Panjang Karakter'] = new_df['Artikel'].str.len()
-                st.dataframe(new_df)
+                if st.checkbox("Metrik"):
+                    new_df['Panjang Karakter'] = new_df['Artikel'].str.len()
+                    st.dataframe(new_df)
 
-                st.subheader("Statistik Penulis")
-                st.set_option('deprecation.showPyplotGlobalUse', False)
-                new_df["Penulis"].value_counts().plot(kind='bar')
-                st.pyplot()
+                    st.subheader("Statistik Penulis")
+                    st.set_option('deprecation.showPyplotGlobalUse', False)
+                    new_df["Penulis"].value_counts().plot(kind='bar')
+                    st.pyplot()
 
-                st.subheader("Statistik Penulis")
-                st.set_option('deprecation.showPyplotGlobalUse', False)
-                new_df["Penulis"].value_counts().plot.pie(autopct="%.2f%%")
-                st.pyplot()
+                    st.subheader("Statistik Penulis")
+                    st.set_option('deprecation.showPyplotGlobalUse', False)
+                    new_df["Penulis"].value_counts().plot.pie(autopct="%.2f%%")
+                    st.pyplot()
 
-            # if st.checkbox("Word Cloud"):
-            #     st.subheader("Generate Word Cloud")
-            #     #text = new_df['Articles'].iloc[0]
-            #     text = ','.join(new_df['Articles'])
-            #     wordcloud = WordCloud().generate(text)
-            #     plt.imshow(wordcloud,interpolation='bilinear')
-            #     plt.axis("off")
-            #     st.pyplot()
-
-            # if st.checkbox("BarH Plot"):
-            #     st.subheader("Length of Articles")
-            #     new_df = clean_db
-            #     new_df['Length'] = new_df['Articles'].str.len()
-            #     barh_plot = new_df.plot.barh(x='Author',y='Length',figsize=(20,10))
-            #     st.pyplot()
 
     if __name__ == '__main__':
         main()

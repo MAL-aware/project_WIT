@@ -414,13 +414,13 @@ def page5():
         data = c.fetchall()
         return data
 
-    def get_blog_by_title(title):
-        c.execute('SELECT * FROM blogtable WHERE title="{}"'.format(title))
+    def get_blog_by_title(t):
+        c.execute("SELECT * FROM blogtable WHERE title LIKE '%{}%'".format(t))
         data = c.fetchall()
         return data
 
-    def get_blog_by_author(author):
-        c.execute('SELECT * FROM blogtable WHERE author="{}"'.format(author))
+    def get_blog_by_author(a):
+        c.execute("SELECT * FROM blogtable WHERE author LIKE '%{}%'".format(a))
         data = c.fetchall()
         return data
 

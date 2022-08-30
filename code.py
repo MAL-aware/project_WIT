@@ -124,7 +124,7 @@ def page2():
     st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Wah, ngeri banget, ya? 😨</h3>""", unsafe_allow_html=True)
     st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Sekarang, ayo coba kita lihat diagram di bawah.</h3>""", unsafe_allow_html=True)
 
-    image=Image.open('/home/anna/Documents/mal-aware_revisi2/grafik2.png')
+    image=Image.open('grafik2.png')
     new_image = image.resize((700, 500))
     st.image(new_image, caption='Sumber: Patroli Siber (2021)')
 
@@ -133,14 +133,14 @@ def page2():
     st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Enggak percaya? Lihat deh diagram di bawah.</h3>""", unsafe_allow_html=True)
     st.write("")
 
-    image=Image.open('/home/anna/Documents/mal-aware_revisi2/grafik3.png')
+    image=Image.open('grafik3.png')
     new_image = image.resize((700, 500))
     st.image(new_image, caption='Sumber: We Are Social 2021 dalam katadata (2021)')
 
     st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Tidak hanya itu, <i>Guys</i>. Berikut ini ada hal terakhir yang tak kalah menarik untuk dijadikan sorotan. Ternyata dari tahun 2018 hingga tahun 2021, total jam untuk mengakses aplikasi belanja <i>online</i> di Indonesia selalu mengalami peningkatan dari tahun ke tahun.</h3>""", unsafe_allow_html=True)
     st.write("")
 
-    image=Image.open('/home/anna/Documents/mal-aware_revisi2/grafik4.png')
+    image=Image.open('grafik4.png')
     new_image = image.resize((700, 500))
     st.image(new_image, caption='Sumber: App Anie, 13 Januari 2021 dalam Katadata (2022)')
 

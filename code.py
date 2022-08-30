@@ -104,6 +104,49 @@ def page2():
     }
     </style>
     """, unsafe_allow_html=True)
+    
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Sebelum kita masuk ke bahasan transaksi <i>online</i>, coba deh simak dulu diagram lingkaran beserta keterangannya berikut. </h3>""", unsafe_allow_html=True) 
+
+    # col1,col2 = st.columns(2)
+    # with col1:
+    # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+    labels = 'Information Gathering', 'Aktivitas Trojan', 'Web Defacement, \nData Breach, \nHuman Operated Ransomware, \nAdvanced Persistent Threat', 'Infeksi Malware'
+    sizes = [9, 10, 19, 62]
+    explode = (0, 0, 0, 0.1)  # only "explode" the 2nd slice (i.e. 'Hogs')
+    my_colors = ['mistyrose','darksalmon','tomato','red']
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90, colors=my_colors)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    st.pyplot(fig1)
+    
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Gimana menurutmu? Kira-kira apa sih maksud dari diagram lingkaran di atas?</h3>""", unsafe_allow_html=True) 
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Jadi begini, <i>Guys</i>, di sepanjang tahun 2021, Badan Siber dan Sandi Negara (BSSN) telah mencatat ada lebih dari 1,6 miliar serangan siber yang terjadi di Indonesia. Diagram di atas menunjukkan apa saja jenis-jenis dari serangan tersebut beserta persentasenya. Serangan terbanyak, yaitu infeksi <a href='https://www.youtube.com/watch?v=vkT4RVdX2lE'><i>malware</i></a> tercatat ada 62%, diikuti oleh <a href='https://www.imperva.com/learn/application-security/website-defacement-attack/'><i>web defacement</i></a>, <a href='https://accurate.id/teknologi/data-breach/'><i>data breach</i></a>, <a href='https://docs.microsoft.com/en-us/security/compass/human-operated-ransomware'><i>human operated ransomware</i></a>, <a href='https://en.wikipedia.org/wiki/Advanced_persistent_threat'><i>advanced persistent threat</i></a> sebanyak 19%, aktivitas Trojan sebanyak 10 %, dan <i>information gathering</i> (pengumpulan informasi untuk memperoleh celah keamanan) sebanyak 9%. </h3>""", unsafe_allow_html=True) 
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Wah, ngeri banget, ya? 😨</h3>""", unsafe_allow_html=True)
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Sekarang, ayo coba kita lihat diagram di bawah.</h3>""", unsafe_allow_html=True)
+
+    image=Image.open('/home/anna/Documents/mal-aware_revisi2/grafik2.png')
+    new_image = image.resize((700, 500))
+    st.image(new_image, caption='Sumber: Patroli Siber (2021)')
+
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Diagram di atas merupakan laporan konten kasus kejahatan siber dari Januari hingga September 2021. Ternyata nih, penipuan merupakan kasus yang paling banyak terjadi di rentang waktu tersebut!</h3>""", unsafe_allow_html=True)
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Sementara itu, di bulan Aprilnya, Indonesia sempat menempati urutan teratas sebagai negara dengan persentase penggunaan <i>e-commerce</i> tertinggi di dunia.</h3>""", unsafe_allow_html=True)
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Enggak percaya? Lihat deh diagram di bawah.</h3>""", unsafe_allow_html=True)
+    st.write("")
+
+    image=Image.open('/home/anna/Documents/mal-aware_revisi2/grafik3.png')
+    new_image = image.resize((700, 500))
+    st.image(new_image, caption='Sumber: We Are Social 2021 dalam katadata (2021)')
+
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Tidak hanya itu, <i>Guys</i>. Berikut ini ada hal terakhir yang tak kalah menarik untuk dijadikan sorotan. Ternyata dari tahun 2018 hingga tahun 2021, total jam untuk mengakses aplikasi belanja <i>online</i> di Indonesia selalu mengalami peningkatan dari tahun ke tahun.</h3>""", unsafe_allow_html=True)
+    st.write("")
+
+    image=Image.open('/home/anna/Documents/mal-aware_revisi2/grafik4.png')
+    new_image = image.resize((700, 500))
+    st.image(new_image, caption='Sumber: App Anie, 13 Januari 2021 dalam Katadata (2022)')
+
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Nah, lhooo .... Apakah kamu termasuk salah satu pengguna yang mengakses aplikasi belanja <i>online</i> di rentang waktu tersebut? Apakah sampai sekarang kamu masih setia melakukan transaksi pembelian melalui aplikasi belanja <i>online</i> pilihanmu itu? Kalau iya, harap selalu berhati-hati, ya. Sebab, dengan adanya kejahatan siber seperti yang ditunjukkan oleh data di atas, kenyataannya kamu pun berpeluang untuk menjadi korban.</h3>""", unsafe_allow_html=True)
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Lantas, bagaimana cara mencegahnya?</h3>""", unsafe_allow_html=True)
+    st.markdown("""<h3 class='small-font'; style='text-align: justify; color: white ;'> Eitss ... tenang. Nanti kamu akan membaca beberapa tipsnya di sini. Namun sebelum itu, kita mulai dulu yuk dari definisi berikut, terutama buat kamu nih yang belum tahu apa perbedaan antara transaksi <i>online</i> dan transaksi digital. Tentunya, kamu juga kepo kan apa saja serangan siber lain yang belum disebutkan di atas? Jadi, pastikan baca secara berurutan, ya! 😉</h3>""", unsafe_allow_html=True)
 
     # ---------- DEFINISI TRANSAKSI ONLINE ----------
     st.markdown("<h2 style='text-align: left; color: lime;'> Definisi Transaksi <i>Online</i> </h2>", unsafe_allow_html=True)
